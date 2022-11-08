@@ -46,10 +46,6 @@
 
 #include <msp430.h>
 
-void initTimer_A(void);
-void delayMS(int msecs);
-
-unsigned int OFCount;
 int ADC_Result;
 
 /*
