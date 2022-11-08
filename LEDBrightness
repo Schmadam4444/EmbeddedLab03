@@ -46,8 +46,6 @@
 
 #include <msp430.h>
 
-int ADC_Result;
-
 /*
  * main.c
  */
@@ -65,8 +63,7 @@ gpioInit();
 adcInit();
 timerInit();
 while(1){
-    readADCSingle();
-    setLEDBrightness(ADC_Result);
+    setLEDBrightness(readADCSingle());
 }
 return 0;
 }
