@@ -81,13 +81,10 @@ return 0;
 void gpioInit(){
     // Configure GPIO Pin
         P6DIR |= BIT0;    // P6.0 output set for GPIO
-        P6SEL0 |= BIT0;       // P6.0 sets options
+        P6SEL0 &= ~BIT0;       // P6.0 sets options
     // Configure ADC Pin
         P1SEL0 |= BIT1;
         P1SEL1 |= BIT1;
-    //pwm pins
-        P6DIR |= BIT0; //6.0 accepts pwm i think
-        P6SEL0 |= BIT0;
 }
 
 /**
@@ -127,9 +124,8 @@ void adcInit(){
 int readADCSingle(){
     // while (!(ADCIFG & ADCIFG0));   // Wait for sample to be sampled and converted
      ADCCTL0 |= ADCENC | ADCSC;                           // Sampling and conversion start
-             __bis_SR_register(LPM0_bits | GIE);          // LPM0, ADC_ISR will force exit
-             __no_operation();
-             return ADC_Result;// For debug only
+     while (!(ADCIFG & ADCIFG0));
+        return ADCMEM0;
 }
 
 /**
